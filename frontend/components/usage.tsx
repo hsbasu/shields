@@ -327,7 +327,7 @@ export default function Usage({ baseUrl }: { baseUrl: string }): JSX.Element {
           <QueryParam
             documentation={
               <span>
-                Insert one of the named logos from (<NamedLogos />) or{' '}
+                Insert one of logos from (<NamedLogos />) or{' '}
                 <a
                   href="https://simpleicons.org/"
                   rel="noopener noreferrer"
@@ -335,10 +335,12 @@ export default function Usage({ baseUrl }: { baseUrl: string }): JSX.Element {
                 >
                   simple-icons
                 </a>
-                . Simple-icons are referenced using names as they appear on the
-                simple-icons site. If the name includes spaces, replace them
-                with dashes (e.g:{' '}
-                <StyledCode>?logo=visual-studio-code</StyledCode>)
+                . Simple-icons are referenced using icon names or slugs as they
+                appear on the simple-icons site. If the name includes spaces,
+                replace them with dashes (e.g:{' '}
+                <StyledCode>?logo=visual-studio-code</StyledCode>) or escape
+                them (e.g: <StyledCode>?logo=visual%20studio%20code</StyledCode>
+                )
               </span>
             }
             key="logo"

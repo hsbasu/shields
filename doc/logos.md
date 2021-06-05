@@ -4,9 +4,21 @@
 
 ### SimpleIcons
 
-We support a wide range of logos via [SimpleIcons][]. They can be referenced by name e.g:
+We support a wide range of logos via [SimpleIcons][]. They can be referenced by the logo slug or name e.g:
 
 ![](https://img.shields.io/npm/v/npm.svg?logo=javascript) - https://img.shields.io/npm/v/npm.svg?logo=javascript
+
+In cases where the logo name contains space characters, you can use either the original title with spaces escaped (e.g. %20) or with the spaces replaced with hyphens (`-`) e.g. for the `Linux Foundation` logo
+
+![](https://img.shields.io/badge/foo-bar-blue?logo=linux%20foundation) - https://img.shields.io/badge/foo-bar-blue?logo=linux%20foundation
+
+![](https://img.shields.io/badge/foo-bar-blue?logo=linux-foundation) - https://img.shields.io/badge/foo-bar-blue?logo=linux-foundation
+
+Or as always with the logo slug, `linuxfoundation`
+
+![](https://img.shields.io/badge/foo-bar-blue?logo=linuxfoundation) - https://img.shields.io/badge/foo-bar-blue?logo=linuxfoundation
+
+The set of Simple Icon logo names and corresponding slugs can be found in the [slugs.md](https://github.com/simple-icons/simple-icons/blob/develop/slugs.md) file in the Simple Icons repository (note that it will take time for Shields.io brand new icons listed on this page).
 
 ### Shields logos
 
