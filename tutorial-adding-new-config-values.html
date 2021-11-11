@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: core/service-test-runner/service-tester.js</title>
+    <title>JSDoc: Tutorial: adding-new-config-values</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,163 +17,39 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: core/service-test-runner/service-tester.js</h1>
+    <h1 class="page-title">Tutorial: adding-new-config-values</h1>
 
-    
-
-
-
-    
     <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module
- */
 
-import emojic from 'emojic'
-import icedfrisbyNockModule from 'icedfrisby-nock'
-import icedfrisbyModule from 'icedfrisby'
-import trace from '../base-service/trace.js'
-import icedfrisbyShieldsModule from './icedfrisby-shields.js'
-const frisby = icedfrisbyShieldsModule(icedfrisbyNockModule(icedfrisbyModule))
+<header>
+    
 
-/**
- * Encapsulate a suite of tests. Create new tests using create() and register
- * them with Mocha using toss().
- *
- * @see https://github.com/badges/shields/blob/master/doc/service-tests.md
- */
-class ServiceTester {
-  /**
-   * Service Tester Constructor
-   *
-   * @param {object} attrs Refer to individual attrs
-   * @param {string} attrs.id
-   *    Specifies which tests to run from the CLI or pull requests
-   * @param {string} attrs.title
-   *    Prints in the Mocha output
-   * @param {string} attrs.pathPrefix
-   *    Prefix which is automatically prepended to each tested URI.
-   *    The default is `/${attrs.id}`.
-   */
-  constructor({ id, title, pathPrefix }) {
-    if (pathPrefix === undefined) {
-      pathPrefix = `/${id}`
-    }
-    Object.assign(this, {
-      id,
-      title,
-      pathPrefix,
-      specs: [],
-      _only: false,
-    })
-  }
+    <h2>adding-new-config-values</h2>
+</header>
 
-  /**
-   * Construct a ServiceTester instance for a single service class
-   *
-   * @param {Function} ServiceClass
-   *    A class that extends base-service/base.BaseService
-   * @returns {module:core/service-test-runner/service-tester~ServiceTester}
-   *    ServiceTester for ServiceClass
-   */
-  static forServiceClass(ServiceClass) {
-    const id = ServiceClass.name
-    const pathPrefix = ServiceClass.route.base
-      ? `/${ServiceClass.route.base}`
-      : ''
-    return new this({
-      id,
-      title: id,
-      pathPrefix,
-    })
-  }
+<article>
+    <h1>Adding New Config Values</h1>
+<p>The Badge Server supports a <a href="./server-secrets.md">variety of methods for defining configuration settings and secrets</a>, and provides a framework for loading those values during bootstrapping.</p>
+<p>Any new configuration setting or secret must be correctly registered so that it will be loaded at startup along with the others.</p>
+<p>This generally includes adding the corresponding information for your new setting(s)/secret(s) to the following locations:</p>
+<ul>
+<li><a href="https://github.com/badges/shields/blob/master/core/server/server.js">core/server/server.js</a> - Add the new values to the <a href="https://github.com/badges/shields/blob/master/core/server/server.js#L118-L193">schemas</a>. Secrets/tokens/etc. should go in the <code>privateConfigSchema</code> while non-secret configuration settings should go in the <code>publicConfigSchema</code>.</li>
+<li><a href="https://github.com/badges/shields/blob/master/config/custom-environment-variables.yml">config/custom-environment-variables.yml</a></li>
+<li><a href="https://github.com/badges/shields/blob/master/doc/server-secrets.md">docs/server-secrets.md</a> (only applicable for secrets)</li>
+<li><a href="https://github.com/badges/shields/blob/master/config/default.yml">config/default.yml</a> (optional)</li>
+<li>Any other template config files (e.g. <code>config/local.template.yml</code>) (optional)</li>
+</ul>
+<p>The exact values needed will depend on what type of secret/setting you are adding, but for reference a few commits are included below which added secrets and or settings:</p>
+<ul>
+<li>(secret) <a href="https://github.com/badges/shields/commit/8a9efb2fc99f97e78ab133c836ab1685803bf4df">8a9efb2fc99f97e78ab133c836ab1685803bf4df</a></li>
+<li>(secret) <a href="https://github.com/badges/shields/commit/bd6f4ee1465d14a8f188c37823748a21b6a46762">bd6f4ee1465d14a8f188c37823748a21b6a46762</a></li>
+<li>(secret) <a href="https://github.com/badges/shields/commit/0fd557d7bb623e3852c92cebac586d5f6d6d89d8">0fd557d7bb623e3852c92cebac586d5f6d6d89d8</a></li>
+<li>(configuration setting) <a href="https://github.com/badges/shields/commit/b1fc4925928c061234e9492f3794c0797467e123">b1fc4925928c061234e9492f3794c0797467e123</a></li>
+</ul>
+<p>Don't hesitate to reach out if you're unsure of the exact values needed for your new secret/setting, or have any other questions. Feel free to post questions on your corresponding Issue/Pull Request, and/or ping us on the <code>contributing</code> channel on our Discord server.</p>
+</article>
 
-  /**
-   * Invoked before each test. This is a stub which can be overridden on
-   * instances.
-   */
-  beforeEach() {}
-
-  /**
-   * Create a new test. The hard work is delegated to IcedFrisby.
-   * {@link https://github.com/MarkHerhold/IcedFrisby/#show-me-some-code}
-   *
-   * Note: The caller should not invoke toss() on the Frisby chain, as it's
-   * invoked automatically by the tester.
-   *
-   * @param {string} msg The name of the test
-   * @returns {module:icedfrisby~IcedFrisby} IcedFrisby instance
-   */
-  create(msg) {
-    const spec = frisby
-      .create(msg)
-      .before(() => {
-        this.beforeEach()
-      })
-      // eslint-disable-next-line mocha/prefer-arrow-callback, promise/prefer-await-to-then
-      .finally(function () {
-        // `this` is the IcedFrisby instance.
-        let responseBody
-        try {
-          responseBody = JSON.parse(this._response.body)
-        } catch (e) {
-          responseBody = this._response.body
-        }
-        trace.logTrace('outbound', emojic.shield, 'Response', responseBody)
-      })
-
-    this.specs.push(spec)
-
-    return spec
-  }
-
-  /**
-   * Run only this tester. This can be invoked using the --only argument to
-   * the CLI, or directly on the tester.
-   */
-  only() {
-    this._only = true
-  }
-
-  /**
-   * Register the tests with Mocha.
-   *
-   * @param {object} attrs Refer to individual attrs
-   * @param {string} attrs.baseUrl base URL for test server
-   * @param {boolean} attrs.skipIntercepted skip tests which intercept requests
-   * @param {object} attrs.retry retry configuration
-   * @param {number} attrs.retry.count number of times to retry test
-   * @param {number} attrs.retry.backoff number of milliseconds to add to the wait between each retry
-   */
-  toss({ baseUrl, skipIntercepted, retry: { count, backoff } }) {
-    const { specs, pathPrefix } = this
-    const testerBaseUrl = `${baseUrl}${pathPrefix}`
-
-    const fn = this._only ? describe.only : describe
-    // eslint-disable-next-line mocha/prefer-arrow-callback
-    fn(this.title, function () {
-      specs.forEach(spec => {
-        spec._message = `[${spec.hasIntercept ? 'mocked' : 'live'}] ${
-          spec._message
-        }`
-        if (!skipIntercepted || !spec.intercepted) {
-          spec.baseUri(testerBaseUrl)
-          spec.retry(count, backoff)
-          spec.toss()
-        }
-      })
-    })
-  }
-}
-
-export default ServiceTester
-</code></pre>
-        </article>
-    </section>
-
-
-
+</section>
 
 </div>
 
@@ -184,7 +60,7 @@ export default ServiceTester
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Nov 11 2021 18:47:58 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Nov 11 2021 18:47:59 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
