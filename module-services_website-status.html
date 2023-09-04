@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: core/base-service/resource-cache</title>
+    <title>JSDoc: Module: services/website-status</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: core/base-service/resource-cache</h1>
+    <h1 class="page-title">Module: services/website-status</h1>
 
     
 
@@ -33,6 +33,8 @@
 <article>
     <div class="container-overview">
     
+        
+            <div class="description"><p>Commonly used functions and utilities for tasks related to website status.</p></div>
         
 
         
@@ -67,7 +69,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_resource-cache.js.html">core/base-service/resource-cache.js</a>, <a href="core_base-service_resource-cache.js.html#line1">line 1</a>
+        <a href="services_website-status.js.html">services/website-status.js</a>, <a href="services_website-status.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -96,6 +98,156 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="~exampleQueryParams"><span class="type-signature">(inner, constant) </span>exampleQueryParams<span class="type-signature"> :object</span></h4>
+
+
+
+
+<div class="description">
+    <p>Example query param object.
+Contains up_message, down_message, up_color and down_color properties.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_website-status.js.html">services/website-status.js</a>, <a href="services_website-status.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~queryParamSchema"><span class="type-signature">(inner, constant) </span>queryParamSchema<span class="type-signature"> :Joi</span></h4>
+
+
+
+
+<div class="description">
+    <p>Joi schema for validating query params.
+Checks if the query params obect has valid up_message, down_message, up_color and down_color properties.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Joi</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_website-status.js.html">services/website-status.js</a>, <a href="services_website-status.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -106,7 +258,7 @@
     
 
     
-    <h4 class="name" id="~getCachedResource"><span class="type-signature">(async, inner) </span>getCachedResource<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {Promise.&lt;*>}</span></h4>
+    <h4 class="name" id="~renderWebsiteStatus"><span class="type-signature">(inner) </span>renderWebsiteStatus<span class="signature">(options)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -114,7 +266,7 @@
 
 
 <div class="description">
-    <p>Make a HTTP request using an in-memory cache</p>
+    <p>Creates a badge object that displays information about website status.</p>
 </div>
 
 
@@ -150,7 +302,7 @@
 
         <tr>
             
-                <td class="name"><code>attrs</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
@@ -166,7 +318,7 @@
 
             
 
-            <td class="description last"><p>Refer to individual attrs</p>
+            <td class="description last"><p>The options for rendering the status</p>
                 <h6>Properties</h6>
                 
 
@@ -196,77 +348,7 @@
 
         <tr>
             
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>URL to request</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ttl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Number of milliseconds to keep cached value for</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>json</code></td>
+                <td class="name"><code>isUp</code></td>
             
 
             <td class="type">
@@ -281,8 +363,6 @@
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
 
@@ -293,25 +373,23 @@
             
                 <td class="default">
                 
-                    true
-                
                 </td>
             
 
-            <td class="description last"><p>True if we expect to parse the response as JSON</p></td>
+            <td class="description last"><p>Whether the website or service is up or down</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>scraper</code></td>
+                <td class="name"><code>upMessage</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">string</span>
 
 
             
@@ -332,25 +410,25 @@
             
                 <td class="default">
                 
-                    buffer => buffer
+                    'up'
                 
                 </td>
             
 
-            <td class="description last"><p>Function to extract value from the response</p></td>
+            <td class="description last"><p>The message to display when the website or service is up</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>downMessage</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
             
@@ -371,25 +449,25 @@
             
                 <td class="default">
                 
-                    {}
+                    'down'
                 
                 </td>
             
 
-            <td class="description last"><p>Options to pass to got</p></td>
+            <td class="description last"><p>The message to display when the website or service is down</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>requestFetcher</code></td>
+                <td class="name"><code>upColor</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">string</span>
 
 
             
@@ -410,12 +488,51 @@
             
                 <td class="default">
                 
-                    fetch
+                    'brightgreen'
                 
                 </td>
             
 
-            <td class="description last"><p>Custom fetch function</p></td>
+            <td class="description last"><p>The color to use when the website or service is up</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>downColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'red'
+                
+                </td>
+            
+
+            <td class="description last"><p>The color to use when the website or service is down</p></td>
         </tr>
 
     
@@ -463,7 +580,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_resource-cache.js.html">core/base-service/resource-cache.js</a>, <a href="core_base-service_resource-cache.js.html#line28">line 28</a>
+        <a href="services_website-status.js.html">services/website-status.js</a>, <a href="services_website-status.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -486,44 +603,13 @@
 
 
 
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        <ul>
-<li>Error if unable to parse response</li>
-</ul>
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">InvalidResponse</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    <p>Promise that resolves to parsed response</p>
+    <p>An object with a message and a color property</p>
 </div>
 
 
@@ -534,7 +620,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;*></span>
+<span class="param-type">object</span>
 
 
     </dd>
@@ -543,6 +629,12 @@
     
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>renderWebsiteStatus({ isUp: true }) // returns { message: 'up', color: 'brightgreen' }
+renderWebsiteStatus({ isUp: false }) // returns { message: 'down', color: 'red' }</code></pre>
 
 
 
